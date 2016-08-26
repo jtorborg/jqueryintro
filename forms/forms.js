@@ -1,70 +1,87 @@
-var array = [];
-var totalSalary = 0;
-var indSalary = 0;
-$(document).ready(function() {
-    // var array = [];
-    // var totalSalary = 0;
-    // var indSalary = 0;
+//======Angular variable==============//
+var myApp = angular.module("myApp", []);
 
-    $('#employeeinfo').on('submit', function(event) {
-      event.preventDefault();
+//=====Angular Controller============//
 
-      // initialize a new variable as an empty object
-      var values = {};
+myApp.controller("myController", ["$scope", "$http", function($scope, $http) {
+
+    console.log("myController loaded");
 
 
+     totalSalary = 0;
+     $scope.indSalary = 0;
+     values = {};
+     var employees = [];
+     $scope.userClick = function() {
+       console.log("click");
 
-      // convert the form inputs into an array
-      var fields = $('#employeeinfo').serializeArray();
-      console.log(values);
-      // iterate over the array and transfer each index into a new property on an object with the value of what was entered.
-      fields.forEach(function(element, index, array) {
-        // review index notation vs. dot notation on objects
-        // here, dot notation wouldn't work
-        values[element.name] = element.value;
-      });
-      console.log(values);
-      console.log(indSalary);
-      console.log(totalSalary);
-      console.log(array);
+         // initialize a new variable as an empty object
+         var firstname = $scope.employeefirstname;
+         var lastname = $scope.employeelastname;
+         var id = $scope.idnumber;
+         var jobtitle = $scope.jobtitle;
+         var salary =  $scope.salary;
 
-      indSalary = parseFloat(values.salary);
-      totalSalary += indSalary/12;
-      values.salary = Math.round(indSalary);
-      array.push(values);
-
-      console.log(values);
-      console.log(indSalary);
-      console.log(totalSalary);
-      console.log(array);
-
-      // clear out inputs
-      $('#employeeinfo').find('input[type=text]').val('');
-
-      $("#misc").text('$' + totalSalary);
+         var monthlySalary = ($scope.salary)/12
 
 
-      // append to DOM
-      appendDom(values);
-    });
 
-    function appendDom(empInfo) {
-      $('#container').append('<div class="person"></div>');
-      var $el = $('#container').children().last();
+         employees.push(
+         {firstname : $scope.employeefirstname,
+         lastname : $scope.employeelastname,
+         id : $scope.idnumber,
+         jobtitle: $scope.jobtitle,
+         salary : $scope.salary,
+         monthlySalary :  ($scope.salary)/12
+         });
+         console.log(employees);
 
-      $el.append('<p>' + empInfo.employeefirstname + ' ' + empInfo.employeelastname + '</p>');
-      $el.append('<p>' + empInfo.idnumber + '</p>');
-      $el.append('<p>' + empInfo.jobtitle + '</p>');
-      $el.append('<p>' + empInfo.salary + '</p>');
+         $scope.employeesArray = employees;
+         console.log($scope.employeesArray);
 
-    }
+         $scope.employeefirstname = "";
+         $scope.employeelastname = "";
+         $scope.idnumber = "";
+         $scope.jobtitle =  "";
+         $scope.salary = "";
 
-    console.log(totalSalary);
-
-    array.forEach(function(element) {
-    totalSalary = totalSalary + (array[i].salary);
+};
 
 
-    });
 
-});
+
+
+
+
+
+
+}]);
+
+
+
+
+//
+// indSalary = parseFloat(values.salary);
+// totalSalary += indSalary / 12;
+// values.salary = Math.round(indSalary);
+// array.push(values);
+//
+// console.log(values);
+// console.log(indSalary);
+// console.log(totalSalary);
+// console.log(array);
+//
+// // clear out inputs
+// $('#employeeinfo').find('input[type=text]').val('');
+//
+// $("#misc").text('$' + totalSalary);
+//
+// console.log(totalSalary);
+//
+// array.forEach(function(element) {
+// totalSalary = totalSalary + (array[i].salary);
+//
+//
+// });
+//
+// ;
